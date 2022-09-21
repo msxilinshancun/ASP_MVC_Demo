@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Case Match";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Please input the Title and Description!</p>
+
+<form name="input" action="CaseMatch" method="post">
+    Title: <input type="text" name="title"><br>
+    Description: <input type="text" name="description">
+    <input type="submit" value="Submit" formenctype="text/plain">
+</form>

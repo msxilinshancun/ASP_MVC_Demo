@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "cJFoqdCSbln98B2QCCMJ6Nobs2KERcebE/b146gBHPVhDE5rYidr2WyE2f4UnwoZ0RMFfO6txo/e3zjJPMdGyQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\xukang\\source\\repos\\MatchCaseService\\MatchCaseService\\MatchCaseService.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\xukang\\.nuget\\packages\\mediatr\\10.0.1\\mediatr.10.0.1.nupkg.sha512",
+    "C:\\Users\\xukang\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
