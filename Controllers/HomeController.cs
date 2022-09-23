@@ -25,10 +25,9 @@ namespace MatchCaseService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CaseMatchCommandResult))]
         public async Task<IActionResult> CaseMatch()
         {
-            var startTime = Stopwatch.StartNew();
-            // content_type="multipart/form-data"
             string title = HttpContext.Request.Form["title"];
             string description = HttpContext.Request.Form["description"];
+            
             #region call python
             string path = System.Environment.CurrentDirectory + @"\Controllers\main.py";
             string sArguments = path;
@@ -46,8 +45,9 @@ namespace MatchCaseService.Controllers
                     Console.Write(result);
                 }
             }
+            
             #endregion
-            var elapsedTimeMs1 = startTime.ElapsedMilliseconds;
+            
             #region deal python json file
             StreamReader r = new StreamReader(Environment.CurrentDirectory + @"\Controllers\res1.json");
             string jsonString = r.ReadToEnd();
@@ -61,11 +61,6 @@ namespace MatchCaseService.Controllers
             ViewData["Date"] =  DateTime.Now.ToString();
             ViewData["Related_ids"] = ids;
             ViewData["Related_titles"] = titles;
-            //Abnormal access to keyvault
-            //Too many requests sent to keyvault                        
-            var elapsedTimeMs2 = startTime.ElapsedMilliseconds;
-            ViewData["t1"] = elapsedTimeMs1;
-            ViewData["t2"] = elapsedTimeMs2;
             return View();
         }
         
