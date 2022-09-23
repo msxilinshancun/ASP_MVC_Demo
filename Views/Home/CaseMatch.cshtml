@@ -1,1 +1,59 @@
-<p>Please input the Title and Description!</p>
+<p>
+    <table class="table">
+        <tr>
+            <th>Title:</th>
+            <td>@ViewData["Title"]</td>
+        </tr>
+        <tr>
+            <th>Name:</th>
+            <td>@ViewData["Name"]</td>
+        </tr>
+        <tr>
+            <th>Date:</th>
+            <td>@ViewData["Date"]</td>
+        </tr>
+        <tr>
+            <th>Description:</th>
+            <td>
+                <textarea rows="10" cols="100" readonly> @ViewData["Description"]</textarea>
+            </td>
+        </tr>
+        <tr>
+            <th>Status:</th>
+            <td>Open</td>
+        </tr>
+        <tr>
+            <th>Comment:</th>
+            <td>
+                <textarea rows="10" cols="100">
+            </textarea>
+            </td>
+        </tr>
+    </table>
+</p>
+@{
+    // 这里是使用的Razor语法，写的C#代码
+    var titles = ViewData["Related_titles"] as List<string>;
+    var ids = ViewData["Related_ids"] as List<string>;
+}
+<p>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Related_Cases</th>
+        </tr>
+        <tr>
+            <td>Title</td>
+        </tr>
+        </thead>
+        <tbody>
+        @for (int i = 0; i < ids.Count(); i++)
+        {
+            <tr>
+                <td>
+                <a href="https://localhost:7156/Home/GetCaseById/@ids[i]"> @titles[i]</a>
+                <td/>
+            </tr>
+        }
+    </table>
+</p>
