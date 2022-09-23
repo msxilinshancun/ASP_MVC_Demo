@@ -1,0 +1,35 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<p>
+    <table class="table">
+        <tr>
+            <th>Title:</th>
+            <td>@ViewData["Title"]</td>
+        </tr>
+        <tr>
+            <th>Description:</th>
+            <td>
+                <textarea rows="10" cols="100" readonly>@ViewData["Description"]</textarea>
+            </td>
+        </tr>
+        <tr>
+            <th>Status:</th>
+            <td>Closed</td>
+        </tr>
+        <tr>
+            <td>Assignee</td>
+            <td>@ViewData["Assignee"]</td>
+        </tr>
+        <tr>
+            <th>Comment:</th>
+            <td>
+                <textarea rows="10" cols="100" readonly>@ViewData["Comments"]</textarea>
+            </td>
+        </tr>
+    </table>
+</p>

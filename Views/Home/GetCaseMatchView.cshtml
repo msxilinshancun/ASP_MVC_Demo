@@ -5,8 +5,145 @@
 
 <p>Please input the Title and Description!</p>
 
-<form name="input" action="CaseMatch" method="post">
-    Title: <input type="text" name="title"><br>
-    Description: <input type="text" name="description">
-    <input type="submit" value="Submit" formenctype="text/plain">
+<form name="input" action="CaseMatch" method="post" class="form-box">
+    <div class="form-item">
+        Title &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp<input type="text" name="title" class="text-input">
+    </div>
+    <div class="form-item">
+                  Description  <textarea rows="10" cols="100" name="description" class="text-input">@ViewData["Description"]</textarea>
+    </div>
+    <div class="form-item">
+        <input type="submit" value="Submit" formenctype="multipart/form-data" class="button">
+    </div>
 </form>
+
+     <style>
+         .form-box {
+             width: 500px;
+         }
+ 
+         .form-item {
+             display: flex;
+             align-items: center;
+             margin-bottom: 10px;
+         }
+ 
+         label {
+             display: block;
+             font-size: 16px;
+             flex: 90px 0 0;
+         }
+ 
+         label::after {
+             content: "：";
+             margin-right: 6px;
+             display: inline-block;
+             vertical-align: middle;
+         }
+ 
+         input.text-input {
+             display: block;
+             padding: 0 10px;
+             border: 1px solid #ccc;
+             width: 100%;
+             height: 40px;
+             outline: none;
+             caret-color: #09f;
+             /*光标颜色*/
+             transition: all 300ms;
+             border-left-width: 5px;
+         }
+ 
+         input.text-input:valid {
+             border-color: #3c9;
+         }
+ 
+         input.text-input:invalid {
+             border-color: #f66;
+         }
+         input[type=checkbox] {
+             position: relative;
+             appearance: none;/*去除系统默认appearance的样式引发的问题*/
+             cursor: pointer;
+             transition: all 100ms;
+             border-radius: 31px;
+             width: 70px;
+             height: 40px;
+             background-color: #e9e9eb;
+             outline: none;
+             margin: 0;
+             display: inline-block;
+         }
+         input[type=checkbox]::before {
+             position: absolute;
+             content: "";
+             transition: all 300ms cubic-bezier(.45, 1, .4, 1);
+             border-radius: 31px;
+             width: 70px;
+             height: 40px;
+             background-color: #e9e9eb;
+         }
+         input[type=checkbox]::after {
+             position: absolute;
+             left: 4px;
+             top: 4px;
+             border-radius: 27px;
+             width: 32px;
+             height: 32px;
+             background-color: #fff;
+             box-shadow: 1px 1px 5px rgba(#000, .3);
+             content: "";
+             transition: all 300ms cubic-bezier(.4, .4, .25, 1.35);
+         }
+         input[type=checkbox]:checked {
+             background-color: #3c9;
+         }
+         input[type=checkbox]:checked::before {
+             transform: scale(0);
+         }
+         input[type=checkbox]:checked::after {
+             transform: translateX(30px);
+         }
+         button {
+             width: 48%;
+             height: 40px;
+             padding: 0;
+             margin: 0;
+             border: none;
+             outline: none;
+             cursor: pointer;
+             border-radius: 5px;
+             overflow: hidden;
+             position: relative;
+             background: #63c3ff;
+             color: #fff;
+         }
+         button::before {
+             --size: 0;
+             position: absolute;
+             left: var(--x);
+             top: var(--y);
+             width: var(--size);
+             height: var(--size);
+             background-image: radial-gradient(circle closest-side, #09f, transparent);
+             content: "";
+             transform: translate3d(-50%, -50%, 0);
+             transition: width 200ms ease, height 200ms ease;
+         }
+         button[type=reset] {
+             background: #6fcc6f;
+         }
+         button[type=reset]::before {
+             background-image: radial-gradient(circle closest-side, #4abf4a, transparent);
+         }
+         button:hover::before {
+             --size: 400px;
+         }
+         button:first-child {
+             margin-right: 4%;
+         }
+         span {
+             position: relative;
+             pointer-events: none;
+         }
+  </style>

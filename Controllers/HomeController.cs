@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using MatchCaseService.Models.Command.CaseMatch;
+using Newtonsoft.Json;
 
 namespace MatchCaseService.Controllers
 {
@@ -22,35 +23,73 @@ namespace MatchCaseService.Controllers
         [HttpPost]
         [Route("Home/CaseMatch")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CaseMatchCommandResult))]
-        public async Task<IActionResult> CaseMatch([FromBody] CaseMatchCommand command, [FromHeader] string tenantId)
+        public async Task<IActionResult> CaseMatch()
         {
-            Console.WriteLine(command.Title);
-            Console.WriteLine(command.Description,"- - ");
-            string[] Relateds = new string[3];
-            Relateds[0] = command.Title;
-            Relateds[1] = command.Title + 'a';
-            Relateds[2] = command.Title + 'b';
-            CaseMatchCommandResult caseResult = new CaseMatchCommandResult()
+            var startTime = Stopwatch.StartNew();
+            // content_type="multipart/form-data"
+            string title = HttpContext.Request.Form["title"];
+            string description = HttpContext.Request.Form["description"];
+            #region call python
+            string path = System.Environment.CurrentDirectory + @"\Controllers\main.py";
+            string sArguments = path;
+            sArguments += " " + title + " " + description;
+            ProcessStartInfo start = new ProcessStartInfo();
+            start.FileName = "python.exe";//cmd is full path to python.exe
+            start.Arguments = sArguments;//args is path to .py file and any cmd line args
+            start.UseShellExecute = false;
+            start.RedirectStandardOutput = true;
+            using(Process process = Process.Start(start))
             {
-                Title =command.Title,
-                Description = command.Description,
-                Name = "Xu Kang",
-                Date = DateTime.Now.ToString(),
-                Related = Relateds
-            };
+                using(StreamReader reader = process.StandardOutput)
+                {
+                    string result = reader.ReadToEnd();
+                    Console.Write(result);
+                }
+            }
+            #endregion
+            var elapsedTimeMs1 = startTime.ElapsedMilliseconds;
+            #region deal python json file
+            StreamReader r = new StreamReader(Environment.CurrentDirectory + @"\Controllers\res1.json");
+            string jsonString = r.ReadToEnd();
+            Dictionary<string,List<string>>? m = JsonConvert.DeserializeObject<Dictionary<string,List<string>>>(jsonString);
+            List<string> titles = m["titles"];
+            List<string> ids = m["ids"];
+            #endregion
+            ViewData["Title"] = title;
+            ViewData["Description"] = description;
+            ViewData["Name"] = "Xu Kang";
+            ViewData["Date"] =  DateTime.Now.ToString();
+            ViewData["Related_ids"] = ids;
+            ViewData["Related_titles"] = titles;
+            //Abnormal access to keyvault
+            //Too many requests sent to keyvault                        
+            var elapsedTimeMs2 = startTime.ElapsedMilliseconds;
+            ViewData["t1"] = elapsedTimeMs1;
+            ViewData["t2"] = elapsedTimeMs2;
             return View();
         }
         
         [HttpGet]
-        [Route("Home/CaseMatch")]
+        [Route("Home/GetCaseMatchView")]
         [Consumes("application/json")]
-        public async Task<IActionResult> CaseMatch()
+        public async Task<IActionResult> GetCaseMatchView()
         {
             return View();
         }
         
-        public async Task<IActionResult> GetCaseMatchView()
+        
+        
+        [HttpGet]
+        [Route("Home/GetCaseById/{id}")]
+        public async Task<IActionResult> GetCaseById([FromRoute] string id)
         {
+            CaseData caseData = new CaseData();
+            Dictionary<string,string> dic = caseData.GetCaseById(id);
+            ViewData["Id"] = id;
+            ViewData["Title"] = dic["Title"];
+            ViewData["Description"] = dic["Description"];
+            ViewData["Comments"] = dic["Comments"];
+            ViewData["Assignee"] = dic["Assignee"];
             return View();
         }
 

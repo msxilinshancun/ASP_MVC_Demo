@@ -12,6 +12,13 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update=".gitignore">
+      <DependentUpon>Program.cs</DependentUpon>
+    </None>
   </ItemGroup>
 
 </Project>

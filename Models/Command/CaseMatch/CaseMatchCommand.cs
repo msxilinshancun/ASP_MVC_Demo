@@ -8,11 +8,11 @@ namespace MatchCaseService.Models.Command.CaseMatch
     {
         [Required(AllowEmptyStrings = false)]
         [StringLength(200)]
-        public string Title { get; init; } = null!;
+        public string Title { get; set; } = null!;
 
         [Required(AllowEmptyStrings = false)]
         [StringLength(1_000_000)]
-        public string Description { get; init; } = null!;
+        public string Description { get; set; } = null!;
     }
 }
 

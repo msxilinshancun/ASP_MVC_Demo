@@ -27,3 +27,6 @@ C:\Users\xukang\source\repos\MatchCaseService\MatchCaseService\obj\Debug\net6.0\
 C:\Users\xukang\source\repos\MatchCaseService\MatchCaseService\bin\Debug\net6.0\MediatR.dll
 C:\Users\xukang\source\repos\MatchCaseService\MatchCaseService\bin\Debug\net6.0\MediatR.Contracts.dll
 C:\Users\xukang\source\repos\MatchCaseService\MatchCaseService\obj\Debug\net6.0\MatchCaseService.csproj.CopyComplete
+C:\Users\xukang\source\repos\MatchCaseService\MatchCaseService\bin\Debug\net6.0\Controllers\res1.json
+C:\Users\xukang\source\repos\MatchCaseService\MatchCaseService\bin\Debug\net6.0\Models\cases.json
+C:\Users\xukang\source\repos\MatchCaseService\MatchCaseService\bin\Debug\net6.0\Newtonsoft.Json.dll
